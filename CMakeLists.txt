@@ -71,16 +71,12 @@ pico_add_extra_outputs(testing)
 
 include(CTest)
 #include(${PICO_TOOLCHAIN_PATH}/lib/cmake/unity/unityConfig.cmake)
-add_executable(mytest test/test_unity.c ${PICO_TOOLCHAIN_PATH}/../../Unity/src/unity.c)
+add_executable(mytest test/test_unity.c test/unity_config.c ${PICO_TOOLCHAIN_PATH}/../../Unity/src/unity.c)
 target_link_libraries(mytest pico_stdlib)
 #target_link_libraries(mytest unity::framework)
-target_include_directories(mytest PRIVATE ${PICO_TOOLCHAIN_PATH}/../../Unity/src)
-
-#find_program(
-#  RENODE
-#  renode
-#  )
-set(RENODE /Applications/Renode.app/Contents/MacOS/macos_run.command)
+target_include_directories(mytest PRIVATE ${PICO_TOOLCHAIN_PATH}/../../Unity/src test)
+pico_set_binary_type(mytest no_flash)
+find_program(RENODE renode)
 
 set(RENODE_FLAGS
   --disable-xwt
@@ -89,15 +85,8 @@ set(RENODE_FLAGS
   --console
   )
 
-# add_test(NAME runmytest COMMAND 
-#   ${RENODE}
-#   ${RENODE_FLAGS}
-#   -e '$$elf=@${PROJECT_BINARY_DIR}/${KERNEL_ELF_NAME}\; include @${RENODE_SCRIPT}\; ${RENODE_OVERLAY} s'
-#   WORKING_DIRECTORY ${APPLICATION_BINARY_DIR}
-#   DEPENDS ${logical_target_for_zephyr_elf}
-#   USES_TERMINAL
-add_test(NAME runmytest COMMAND 
+add_test(NAME runmytest COMMAND
     ${RENODE}
      ${RENODE_FLAGS}
-    -e "mach create 'pico'; machine LoadPlatformDescription @platforms/cpus/picosoc.repl; sysbus LoadELF @mytest.elf; start"
+    -e "$elf=@$<TARGET_FILE:mytest>; $cwd=@${CMAKE_SOURCE_DIR}; include @${CMAKE_SOURCE_DIR}/hello_world.resc"
     )

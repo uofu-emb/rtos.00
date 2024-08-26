@@ -7,6 +7,7 @@ void tearDown(void) {}
 
 void testWorks()
 {
+    printf("hello world!");
     TEST_ASSERT_TRUE_MESSAGE(1 == 1,"Data bits not set as expected");
 }
 
