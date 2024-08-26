@@ -20,7 +20,7 @@ jobs:
         with:
           repository: raspberrypi/pico-sdk
           ref: develop
-          path: ${{github.workspace}}/pico-sdk
+          path: ${{github.workspace}}/pico_sdk
           submodules: true
 
       - uses: actions/checkout@v3
