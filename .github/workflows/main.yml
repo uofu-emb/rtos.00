@@ -20,7 +20,7 @@ jobs:
         with:
           repository: raspberrypi/pico-sdk
           ref: develop
-          path: .pico-sdk
+          path: ${{github.workspace}}/.pico-sdk
 
       - name: Checkout pico-sdk submodules
         working-directory: ${{github.workspace}}/.pico-sdk
