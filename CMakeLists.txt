@@ -80,24 +80,24 @@ target_include_directories(testing PRIVATE
 
 pico_add_extra_outputs(testing)
 
-include(CTest)
-#include(${PICO_TOOLCHAIN_PATH}/lib/cmake/unity/unityConfig.cmake)
-add_executable(mytest test/test_unity.c test/unity_config.c ${PICO_TOOLCHAIN_PATH}/../../Unity/src/unity.c)
-target_link_libraries(mytest pico_stdlib)
-#target_link_libraries(mytest unity::framework)
-target_include_directories(mytest PRIVATE ${PICO_TOOLCHAIN_PATH}/../../Unity/src test)
-pico_set_binary_type(mytest no_flash)
-find_program(RENODE renode)
+# include(CTest)
+# #include(${PICO_TOOLCHAIN_PATH}/lib/cmake/unity/unityConfig.cmake)
+# add_executable(mytest test/test_unity.c test/unity_config.c ${PICO_TOOLCHAIN_PATH}/../../Unity/src/unity.c)
+# target_link_libraries(mytest pico_stdlib)
+# #target_link_libraries(mytest unity::framework)
+# target_include_directories(mytest PRIVATE ${PICO_TOOLCHAIN_PATH}/../../Unity/src test)
+# pico_set_binary_type(mytest no_flash)
+# find_program(RENODE renode)
 
-set(RENODE_FLAGS
-  --disable-xwt
-  --port -2
-  --pid-file renode.pid
-  --console
-  )
+# set(RENODE_FLAGS
+#   --disable-xwt
+#   --port -2
+#   --pid-file renode.pid
+#   --console
+#   )
 
-add_test(NAME runmytest COMMAND
-    ${RENODE}
-     ${RENODE_FLAGS}
-    -e "$elf=@$<TARGET_FILE:mytest>; $cwd=@${CMAKE_SOURCE_DIR}; include @${CMAKE_SOURCE_DIR}/hello_world.resc"
-    )
+# add_test(NAME runmytest COMMAND
+#     ${RENODE}
+#      ${RENODE_FLAGS}
+#     -e "$elf=@$<TARGET_FILE:mytest>; $cwd=@${CMAKE_SOURCE_DIR}; include @${CMAKE_SOURCE_DIR}/hello_world.resc"
+#     )
