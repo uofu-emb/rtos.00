@@ -16,7 +16,7 @@ else()
     set(USERHOME $ENV{HOME})
 endif()
 
-if(DEFINED $ENV{PICO_SDK_PATH})
+if(DEFINED ENV{PICO_SDK_PATH})
    set(PICO_SDK_PATH $ENV{PICO_SDK_PATH})
 else()
    set(PICO_SDK_PATH ${USERHOME}/.pico-sdk/sdk/2.0.0)
