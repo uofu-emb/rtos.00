@@ -9,8 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: GNU Toolchain
-        uses: carlosperate/arm-none-eabi-gcc-action@v1
+      - uses: carlosperate/arm-none-eabi-gcc-action@v1
         with:
           release: '13.2.Rel1'
 
