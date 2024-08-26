@@ -14,19 +14,16 @@ jobs:
           echo "Cleaning up previous run"
           rm -rf "${{ github.workspace }}"
           mkdir -p "${{ github.workspace }}"
-      - name: wtf
-        shell: bash
-        run: env
 
       - name: Checkout pico-sdk/develop
         uses: actions/checkout@v2
         with:
           repository: raspberrypi/pico-sdk
           ref: develop
-          path: /home/runner/.pico-sdk
+          path: ${{github.workspace}}/.pico-sdk
 
       - name: Checkout pico-sdk submodules
-        working-directory: /home/runner/.pico-sdk
+        working-directory: ${{github.workspace}}/.pico-sdk
         run: git submodule update --init
 
       - name: Create Build Environment
@@ -44,7 +41,7 @@ jobs:
         # Note the current convention is to use the -S and -B options here to specify source
         # and build directories, but this is only available with CMake 3.13 and higher.
         # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-        run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -B ./build .
+        run: HOME=${{github.workspace}} cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -B ./build .
 
       - name: Build
         working-directory: ${{github.workspace}}
