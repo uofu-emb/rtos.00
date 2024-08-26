@@ -14,6 +14,9 @@ jobs:
           echo "Cleaning up previous run"
           rm -rf "${{ github.workspace }}"
           mkdir -p "${{ github.workspace }}"
+      - name: wtf
+        shell: bash
+        run: env
 
       - name: Checkout pico-sdk/develop
         uses: actions/checkout@v2
