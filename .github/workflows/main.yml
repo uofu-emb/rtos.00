@@ -23,10 +23,10 @@ jobs:
         with:
           repository: raspberrypi/pico-sdk
           ref: develop
-          path: $HOME/.pico-sdk
+          path: /home/runner/.pico-sdk
 
       - name: Checkout pico-sdk submodules
-        working-directory: $HOME/.pico-sdk
+        working-directory: /home/runner/.pico-sdk
         run: git submodule update --init
 
       - name: Create Build Environment
