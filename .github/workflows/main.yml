@@ -21,10 +21,7 @@ jobs:
           repository: raspberrypi/pico-sdk
           ref: develop
           path: ${{github.workspace}}/.pico-sdk
-
-      - name: Checkout pico-sdk submodules
-        working-directory: ${{github.workspace}}/.pico-sdk
-        run: git submodule update --init
+          submodules: true
 
       - uses: actions/checkout@v3
         with:
